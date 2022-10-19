@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  mssql:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    command: /opt/mssql/bin/sqlservr
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "yourStrong(!)Password"
+    stdin_open: true
+    container_name: sqlserver
+    ports:
+      - 1433:1433
+    networks:
+      - mssql_net
+  sqlcmd:
+    image: mcr.microsoft.com/mssql-tools:latest
+    stdin_open: true
+    container_name: mssql-tools
+    networks:
+      - mssql_net
+networks:
+networks:
+  mssql_net:
+    name: mssql_net
